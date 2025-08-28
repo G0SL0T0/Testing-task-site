@@ -25,25 +25,32 @@ async function main() {
   });
   const $ = cheerio.load(html);
 
+  // Исправляем типизацию для элементов
   $("title, h1").each((_, el) => {
-    const $el = $(el);
+    const $el = $(el) as cheerio.Cheerio<any>;
     $el.text(injectKeyword($el.text(), keyword));
   });
 
   $("p, span, li, div").each((_, el) => {
-    const $el = $(el);
+    const $el = $(el) as cheerio.Cheerio<any>;
     const text = $el.text();
     if (Math.random() < 0.2) {
       $el.text(injectKeyword(text, keyword));
     }
   });
 
-  const assets: Array<{ el: cheerio.Element; attr: string; src: string }> = [];
+  // Исправляем типизацию для assets
+  const assets: Array<{ el: cheerio.Cheerio<any>; attr: string; src: string }> = [];
   $("link[rel=stylesheet], script[src], img[src]").each((_, el) => {
     const attr = el.tagName === "link" ? "href" : "src";
     const src = $(el).attr(attr);
     if (src && src.startsWith("http")) {
-      assets.push({ el, attr, src });
+      // Исправляем: передаем обернутый в Cheerio элемент, а не сырой DOM-элемент
+      assets.push({ 
+        el: $(el) as cheerio.Cheerio<any>, 
+        attr, 
+        src 
+      });
     }
   });
 
@@ -58,7 +65,7 @@ async function main() {
 
   mkdirSync(TARGET_DIR, { recursive: true });
   writeFileSync(join(TARGET_DIR, "index.html"), $.html(), "utf8");
-  console.log("✅ Scraping done.");
+  console.log("Scraping done.");
 }
 
 main().catch(console.error);

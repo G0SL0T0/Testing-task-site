@@ -1,5 +1,5 @@
 import { writeFileSync, mkdirSync } from "fs";
-import { join, basename } from "path";
+import { join, basename, dirname } from "path";
 import axios from "axios";
 
 export function injectKeyword(text: string, kw: string): string {
