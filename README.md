@@ -23,10 +23,10 @@
 ### С помощью Docker:
 
 1. **Запуск одним кликом** (через Docker Desktop):
-   - Откройте [Docker Hub](https://hub.docker.com/r/g0sl0t0/site-scraper)
+   - Откройте [Docker Hub](https://hub.docker.com)
    - Нажмите кнопку "Pull" или выполните команду:
    ```bash
-   docker run -d -p 8008:8008 g0sl0t0/site-scraper:latest
+      docker run -d -p 8008:8008 sgosloto/site-scraper:latest
    ```
 
 2. **Откройте приложение**:
@@ -62,22 +62,12 @@
 
 1. Откройте http://localhost:8008
 2. В форме введите:
-   - **Website URL**: URL сайта для скрапинга (например, `https://example.com`)
+   - **Website URL**: URL сайта для скрапинга (например - )
    - **Keyword**: Ключевое слово для вставки (например, `TEST_KEYWORD`)
 3. Нажмите кнопку "Start Scraping"
 4. После завершения процесса:
    - Увидите сообщение об успешном выполнении
    - Нажмите на ссылку "View Scraped Site" для просмотра результата
-
-### Через командную строку
-
-```bash
-# Запуск скрапера напрямую
-docker exec -it site-scraper-container node /scrapper/dist/scraper.js --url https://example.com --keyword "TEST"
-
-# Просмотр результатов
-docker exec site-scraper-container ls -la /usr/share/nginx/html/site
-```
 
 ## 📁 Структура проекта
 
@@ -178,6 +168,6 @@ git push origin v1.0.0
 | Тег | Описание | Размер |
 |-----|----------|-------|
 | [`latest`](https://hub.docker.com/r/g0sl0t0/site-scraper) | Последняя стабильная версия | ![](https://img.shields.io/docker/image-size/g0sl0t0/site-scraper/latest) |
-| [`v1.0.0`](https://hub.docker.com/r/g0sl0t0/site-scraper:v1.0.0) | Версия 1.0.0 | ![](https://img.shields.io/docker/image-size/g0sl0t0/site-scraper/v1.0.0) |
+| [`v1.0.0`](https://hub.docker.com/sgosloto/site-scraper:latest) | Версия 1.0.0 | ![](https://img.shields.io/docker/image-size/g0sl0t0/site-scraper/v1.0.0) |
 
 ---
