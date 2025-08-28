@@ -59,10 +59,10 @@ async function main() {
       /* ignore */
     }
   }
-
   mkdirSync(TARGET_DIR, { recursive: true });
   writeFileSync(join(TARGET_DIR, "index.html"), $.html(), "utf8");
-  console.log("✅ Scraping done.");
+  console.log(`Scraping done. Files saved to: ${TARGET_DIR}`);
+  console.log(`File list: ${require('fs').readdirSync(TARGET_DIR)}`);
 }
 
 main().catch(console.error);

@@ -21,20 +21,31 @@ const ScraperForm: React.FC<ScraperFormProps> = ({ onScrapeComplete }) => {
     setError(null);
     
     try {
-      // Здесь будет вызов API для запуска скрапера
-      // Пока имитируем запрос
-      await new Promise(resolve => setTimeout(resolve, 2000));
-      
-      // Имитация успешного ответа
-      onScrapeComplete({
-        success: true,
-        message: 'Scraping completed successfully!',
-        siteUrl: '/site/index.html'
+      const response = await fetch('/api/scrape', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ url, keyword }),
       });
       
-      // Сброс формы
-      setUrl('');
-      setKeyword('');
+      const data = await response.json();
+      
+      if (data.success) {
+        onScrapeComplete({
+          success: true,
+          message: data.message,
+          siteUrl: data.siteUrl
+        });
+        setUrl('');
+        setKeyword('');
+      } else {
+        setError(data.error || 'Scraping failed');
+        onScrapeComplete({
+          success: false,
+          message: data.error || 'Scraping failed'
+        });
+      }
     } catch (err) {
       setError('Failed to scrape the site. Please try again.');
       onScrapeComplete({

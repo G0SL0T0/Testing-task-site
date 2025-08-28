@@ -19,7 +19,7 @@ RUN npm run build
 
 # --------------------
 FROM nginx:alpine
-RUN apk add --no-cache nodejs npm
+RUN apk add --no-cache nodejs npm supervisor
 
 WORKDIR /scrapper
 COPY --from=build-scraper /build/dist ./dist
@@ -29,7 +29,12 @@ RUN chmod +x /scrapper/dist/scraper.js
 
 COPY --from=build-ui /ui/dist /usr/share/nginx/html/ui
 COPY nginx.conf /etc/nginx/conf.d/default.conf
-RUN mkdir -p /usr/share/nginx/html/site
+
+RUN mkdir -p /usr/share/nginx/html/site && \
+    chown -R nginx:nginx /usr/share/nginx/html/site
+
+# Копируем конфиг supervisord
+COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 EXPOSE 8008
-CMD ["nginx", "-g", "daemon off;"]
+CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
