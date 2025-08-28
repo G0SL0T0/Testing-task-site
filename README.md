@@ -1,12 +1,10 @@
 
 
 # Site Scraper
-[![Docker Pulls](https://img.shields.io/docker/pulls/g0sl0t0/site-scraper.svg)](https://hub.docker.com/r/g0sl0t0/site-scraper)
-[![GitHub tag (latest by date)](https://img.shields.io/github/v/tag/G0SL0T0/Testing-task-site.svg)](https://github.com/G0SL0T0/Testing-task-site/tags)
-[![License](https://img.shields.io/github/license/G0SL0T0/Testing-task-site.svg)](https://github.com/G0SL0T0/Testing-task-site/blob/main/LICENSE)
-[![Build Status](https://img.shields.io/github/actions/workflow/status/G0SL0T0/Testing-task-site/docker.yml?branch=main)](https://github.com/G0SL0T0/Testing-task-site/actions)
 
 Тестовое задание - Веб-скрапер с модификацией контента, который позволяет скачивать веб-страницы, вставлять ключевые слова и сохранять результаты локально.
+
+![Демонстрация](https://imgur.com/SRA9qTb)
 
 ## Технологии
 
