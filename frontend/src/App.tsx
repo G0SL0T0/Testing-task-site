@@ -1,27 +1,34 @@
-import { useState } from "react";
+import React, { useState } from 'react';
+import ScraperForm from './components/ScraperForm';
+import ResultsDisplay from './components/ResultsDisplay';
 
-export default function App() {
-  const [url, setUrl] = useState("");
-  const [keyword, setKeyword] = useState("");
-  const [status, setStatus] = useState("");
+function App() {
+  const [results, setResults] = useState<{
+    success: boolean;
+    message: string;
+    siteUrl?: string;
+  } | null>(null);
 
-  const scrape = async () => {
-    setStatus("scraping…");
-    await fetch("/api/scrape", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ url, keyword }),
-    });
-    setStatus("done! open /site");
+  const handleScrapeComplete = (result: {
+    success: boolean;
+    message: string;
+    siteUrl?: string;
+  }) => {
+    setResults(result);
   };
 
   return (
-    <div style={{ padding: 40 }}>
-      <h1>Site Scraper</h1>
-      <input value={url} onChange={(e) => setUrl(e.target.value)} placeholder="URL" />
-      <input value={keyword} onChange={(e) => setKeyword(e.target.value)} placeholder="Keyword" />
-      <button onClick={scrape}>Scrape</button>
-      <p>{status}</p>
+    <div className="container">
+      <div className="card">
+        <h1>Site Scraper</h1>
+        <p>Enter a URL and keyword to scrape and modify the content</p>
+        
+        <ScraperForm onScrapeComplete={handleScrapeComplete} />
+        
+        {results && <ResultsDisplay results={results} />}
+      </div>
     </div>
   );
 }
+
+export default App;
