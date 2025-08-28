@@ -13,6 +13,7 @@ COPY frontend/package*.json ./
 COPY frontend/tsconfig.json ./
 COPY frontend/vite.config.ts ./
 COPY frontend/src ./src
+COPY frontend/index.html ./
 RUN npm ci
 RUN npm run build
 
