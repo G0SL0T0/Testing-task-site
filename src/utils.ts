@@ -1,4 +1,4 @@
-import { writeFileSync, mkdirSync } from "fs";
+import { writeFileSync, mkdirSync, existsSync } from "fs";
 import { join, basename, dirname } from "path";
 import axios from "axios";
 
@@ -10,10 +10,25 @@ export function injectKeyword(text: string, kw: string): string {
 }
 
 export async function downloadAsset(url: string, dir: string): Promise<string> {
-  const fileName = basename(new URL(url).pathname) || "asset";
-  const localPath = join(dir, fileName);
-  mkdirSync(dirname(localPath), { recursive: true });
-  const { data } = await axios.get(url, { responseType: "arraybuffer" });
-  writeFileSync(localPath, Buffer.from(data));
-  return fileName;
+  try {
+    const fileName = basename(new URL(url).pathname) || "asset";
+    const localPath = join(dir, fileName);
+    
+    const fileDir = dirname(localPath);
+    if (!existsSync(fileDir)) {
+      mkdirSync(fileDir, { recursive: true });
+    }
+    
+    console.log(`Downloading asset: ${url} to ${localPath}`);
+    const { data } = await axios.get(url, { 
+      responseType: "arraybuffer",
+      timeout: 5000,
+    });
+    writeFileSync(localPath, Buffer.from(data));
+    console.log(`Successfully downloaded: ${localPath}`);
+    return fileName;
+  } catch (error) {
+    console.error(`Error downloading asset ${url}:`, error);
+    throw error;
+  }
 }
