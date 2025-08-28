@@ -24,14 +24,12 @@ async function main() {
     headers: { "User-Agent": "Mozilla/5.0 (site-scraper)" },
   });
   const $ = cheerio.load(html);
-
-  // Исправляем типизацию параметров
-  $("title, h1").each((_: number, el: cheerio.Element) => {
+  $("title, h1").each((_, el) => {
     const $el = $(el) as cheerio.Cheerio<any>;
     $el.text(injectKeyword($el.text(), keyword));
   });
 
-  $("p, span, li, div").each((_: number, el: cheerio.Element) => {
+  $("p, span, li, div").each((_, el) => {
     const $el = $(el) as cheerio.Cheerio<any>;
     const text = $el.text();
     if (Math.random() < 0.2) {
@@ -40,8 +38,9 @@ async function main() {
   });
 
   const assets: Array<{ el: cheerio.Cheerio<any>; attr: string; src: string }> = [];
-  $("link[rel=stylesheet], script[src], img[src]").each((_: number, el: cheerio.Element) => {
-    const attr = el.tagName === "link" ? "href" : "src";
+  $("link[rel=stylesheet], script[src], img[src]").each((_, el) => {
+    const tagEl = el as any;
+    const attr = tagEl.tagName === "link" ? "href" : "src";
     const src = $(el).attr(attr);
     if (src && src.startsWith("http")) {
       assets.push({ 
