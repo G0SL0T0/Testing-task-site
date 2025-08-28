@@ -5,6 +5,7 @@
 Тестовое задание - Веб-скрапер с модификацией контента, который позволяет скачивать веб-страницы, вставлять ключевые слова и сохранять результаты локально.
 
 ![Демонстрация](https://imgur.com/SRA9qTb)
+![Демонстрация работы скрапера](https://imgur.com/SRA9qTb)
 
 ## Технологии
 
@@ -28,6 +29,7 @@
    ```bash
       docker run -d -p 8008:8008 sgosloto/site-scraper:latest
    ```
+   - И переходишь на [Localhost:8008](http://localhost:8008/)
 
 2. **Откройте приложение**:
    - Перейдите по адресу: http://localhost:8008
@@ -167,7 +169,6 @@ git push origin v1.0.0
 
 | Тег | Описание | Размер |
 |-----|----------|-------|
-| [`latest`](https://hub.docker.com/r/g0sl0t0/site-scraper) | Последняя стабильная версия | ![](https://img.shields.io/docker/image-size/g0sl0t0/site-scraper/latest) |
-| [`v1.0.0`](https://hub.docker.com/sgosloto/site-scraper:latest) | Версия 1.0.0 | ![](https://img.shields.io/docker/image-size/g0sl0t0/site-scraper/v1.0.0) |
+| [`v1.0.0`](https://hub.docker.com/repository/docker/sgosloto/site-scraper) | Версия 1.0.0 | ![](https://img.shields.io/docker/image-size/g0sl0t0/site-scraper/v1.0.0) |
 
 ---
