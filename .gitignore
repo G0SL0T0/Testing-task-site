@@ -1,0 +1,25 @@
+# Android
+*.gradle
+/local.properties
+.idea/
+.gradle
+build/
+*/build/
+*.hprof
+
+# Node.js
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# React Native
+.expo/
+dist/
+web-build/
+
+# TypeScript
+*.tsbuildinfo
+
+# Misc
+*.log
+*.lock
